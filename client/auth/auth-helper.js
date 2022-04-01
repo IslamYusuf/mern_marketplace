@@ -1,7 +1,7 @@
-import {signout} from "./api-auth"
+import { signout } from "./api-auth"
 
-const  authenticate = (jwt, cb) => {
-    if(typeof window !== "undefined")
+const authenticate = (jwt, cb) => {
+    if (typeof window !== "undefined")
         sessionStorage.setItem('jwt', JSON.stringify(jwt))
     cb()
 }
@@ -16,7 +16,7 @@ const isAuthenticated = () => {
 }
 
 const clearJWT = (cb) => {
-    if(typeof window !== "undefined")
+    if (typeof window !== "undefined")
         sessionStorage.removeItem('jwt')
     cb()
     signout().then((data) => {
@@ -24,4 +24,15 @@ const clearJWT = (cb) => {
     })
 }
 
-export default {authenticate, isAuthenticated, clearJWT}
+const updateUser = (user, cb) => {
+    if (typeof window !== "undefined") {
+        if (sessionStorage.getItem('jwt')) {
+            let auth = JSON.parse(sessionStorage.getItem('jwt'))
+            auth.user = user
+            sessionStorage.setItem('jwt', JSON.stringify(auth))
+            cb()
+        }
+    }
+}
+
+export default { authenticate, isAuthenticated, clearJWT, updateUser }
