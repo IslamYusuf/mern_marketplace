@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core'
 
 import { list } from './api-product.js'
-import Products from './Products'
+import Products from './Products.js'
 
 const useStyles = makeStyles(theme => ({
     root: {
